@@ -28,7 +28,8 @@ export default {
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    '@nuxtjs/tailwindcss'
+    '@nuxtjs/tailwindcss',
+    '@nuxtjs/composition-api'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -38,7 +39,9 @@ export default {
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseURL: 'https://jsonplaceholder.typicode.com'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
