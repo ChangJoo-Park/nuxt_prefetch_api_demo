@@ -49,8 +49,6 @@
           </div>
         </nuxt-link>
       </li>
-
-      <nuxt-link to="/about">ABOUT</nuxt-link>
     </ul>
   </div>
 </template>
