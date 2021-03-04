@@ -1,18 +1,27 @@
 <template>
   <div>
-    <div v-if="$fetchState && $fetchState.pending">Loading...</div>
+    <div v-if="fetchState.pending">Loading...</div>
     <div v-if="todo">
       <div class="text-lg font-bold">
         {{ todo.id }} - {{ todo.title }}
       </div>
       <div>
-        <button v-if="todo.completed" class="border border-gray-900 rounded px-4 py-2">
-          <span >Completed</span>
-        </button>
-        <button v-else class="border border-gray-900 rounded px-4 py-2">
-          <span >Todo</span>
-        </button>
+        <span v-if="todo.completed" class="rounded px-4 py-2">
+          Completed
+        </span>
+        <span class="rounded px-4 py-2">
+          Todo
+        </span>
       </div>
+    </div>
+
+    <div>
+      <nuxt-link to="/" class="mr-4">
+        Back to main
+      </nuxt-link>
+      <nuxt-link to="/" class="mr-4" @mouseenter.native="onMouseEnter">
+        Back to main with prefetch
+      </nuxt-link>
     </div>
   </div>
 </template>
@@ -31,7 +40,7 @@ export default defineComponent({
     let todo = ref(null);
     const $route = useRoute();
 
-    const { fetch } = useFetch(async () => {
+    const { fetch, fetchState } = useFetch(async () => {
       const id = $route.value.params.task
       const key = `todo-${id}`
       const url = `/api/todos/${id}`
@@ -43,7 +52,15 @@ export default defineComponent({
 
     fetch();
 
-    return { todo };
+    const { fetch: fetchTodos } = useFetch(async () => {
+      await usePrefetchStore("todos", "/api/todos");
+    });
+
+    const onMouseEnter = () => {
+      fetchTodos();
+    };
+
+    return { fetchState, todo, onMouseEnter };
   },
 });
 </script>
