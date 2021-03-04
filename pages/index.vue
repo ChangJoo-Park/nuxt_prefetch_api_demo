@@ -2,7 +2,7 @@
   <div class="flex flex-row space-x-4">
     <div class="w-60 p-4">
       <div class="font-bold text-xl">
-        MY TODO
+        PREFETCH TODOS
       </div>
     </div>
     <div class="p-4">

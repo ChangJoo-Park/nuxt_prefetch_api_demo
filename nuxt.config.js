@@ -37,10 +37,11 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
   ],
-
+  serverMiddleware: [
+    '~/serverMiddleware/api.js'
+  ],
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: 'https://jsonplaceholder.typicode.com'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
