@@ -47,7 +47,6 @@
 import {
   defineComponent,
   ref,
-  useContext,
   useFetch,
 } from "@nuxtjs/composition-api";
 import { useDebounceFn } from "@vueuse/shared";
@@ -57,9 +56,9 @@ export default defineComponent({
   setup() {
     let todos = ref([]);
 
-    const { $axios } = useContext();
     const { fetch } = useFetch(async () => {
-      todos.value = await $axios.$get("/api/todos");
+      const { data } = await usePrefetchStore('todos', "/api/todos", { resetCache: false })
+      todos.value = data
     });
 
     fetch();
