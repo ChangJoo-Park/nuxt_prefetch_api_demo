@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { defineComponent, ref, useFetch } from "@nuxtjs/composition-api";
+import { defineComponent, useFetch } from "@nuxtjs/composition-api";
 import usePrefetchStore from "~/composable/prefetch-store";
 
 export default defineComponent({
