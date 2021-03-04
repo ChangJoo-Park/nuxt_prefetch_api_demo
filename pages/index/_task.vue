@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="$fetchState.pending">Loading...</div>
-    <div v-else>
+    <div v-if="$fetchState && $fetchState.pending">Loading...</div>
+    <div v-if="todo">
       <div class="text-lg font-bold">
         {{ todo.id }} - {{ todo.title }}
       </div>
