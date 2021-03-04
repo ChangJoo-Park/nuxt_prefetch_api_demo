@@ -3,11 +3,10 @@
   "builds": [
     {
       "src": "nuxt.config.js",
-      "use": "@nuxtjs/vercel-builder"
-    },
-    {
-      "src": "server-middleware/**/*.js",
-      "use": "@vercel/node"
+      "use": "@nuxtjs/vercel-builder",
+      "config": {
+        "serverFiles": ["server-middleware/**"]
+      }
     }
   ],
   "routes": [
