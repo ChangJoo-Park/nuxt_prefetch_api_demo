@@ -1,5 +1,17 @@
 <template>
   <div>
+
+    <div class="mb-4">
+      <label for="delay">Debounce delay (ms)</label>
+      <input
+        id="delay"
+        type="number"
+        min=65
+        v-model.number="debounceDelay"
+        class="border rounded p-2 focus:bg-gray-100"
+      >
+    </div>
+
     <ul class="flex flex-col space-y-2">
       <li
         class="transition-all duration-200 cursor-pointer border rounded px-4 hover:shadow hover:bg-gray-200"
@@ -54,8 +66,8 @@ import usePrefetchStore from "~/composable/prefetch-store";
 
 export default defineComponent({
   setup() {
-    let todos = ref([]);
-
+    const todos = ref([]);
+    const debounceDelay = ref(65);
     const { fetch } = useFetch(async () => {
       const { data } = await usePrefetchStore('todos', "/api/todos", { resetCache: false })
       todos.value = data
@@ -64,8 +76,8 @@ export default defineComponent({
     fetch();
 
     const debouncedFn = useDebounceFn(async (key, url) => {
-      usePrefetchStore(key, url, { resetCache: false })
-    }, 1000);
+      await usePrefetchStore(key, url, { resetCache: false })
+    }, debounceDelay.value);
 
     const onMouseEnter = (todo) => {
       if (todo.id === 1) {
@@ -77,7 +89,7 @@ export default defineComponent({
       debouncedFn(`todo-${todo.id}`, url);
     };
 
-    return { todos, onMouseEnter };
+    return { todos, onMouseEnter, debounceDelay };
   },
 });
 </script>
