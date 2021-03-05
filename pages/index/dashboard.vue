@@ -42,7 +42,7 @@
             {{ item.user }}
           </div>
           <div>
-            {{ item.date }}
+            {{ new Date(item.date).toLocaleDateString() }}
           </div>
           <div>
             {{ item.company }}
@@ -89,7 +89,7 @@
             <span v-else class="text-gray-400">{{ item.status }}</span>
           </div>
           <div>
-            {{ item.date }}
+            {{ new Date(item.date).toLocaleDateString() }}
           </div>
         </list-item>
       </widget>
