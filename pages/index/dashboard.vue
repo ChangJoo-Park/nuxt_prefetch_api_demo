@@ -1,97 +1,114 @@
 <template>
   <div class="p-4 flex flex-col space-y-4">
     <div class="grid grid-cols-3 gap-4">
-      <widget title="신규 사용자">
-        <bar-chart
-          v-if="barChartData"
-          :data="barChartData"
-          :options="chartOptions"
-          :height="200"
-        />
+      <widget title="신규 사용자" v-if="barChartData">
+        <client-only>
+          <bar-chart
+            :data="barChartData"
+            :options="chartOptions"
+            :height="200"
+          />
+        </client-only>
       </widget>
-      <widget title="가입자 성별 변화">
-        <line-chart
-          v-if="lineChartData"
-          :data="lineChartData"
-          :options="chartOptions"
-          :height="200"
-        />
+      <widget title="가입자 성별 변화" v-if="lineChartData">
+        <client-only>
+          <line-chart
+            :data="lineChartData"
+            :options="chartOptions"
+            :height="200"
+          />
+        </client-only>
       </widget>
-      <widget title="연령비">
-        <doughnut-chart
-          v-if="doughnutChartData"
-          :data="doughnutChartData"
-          :options="chartOptions"
-          :height="200"
-        />
+      <widget title="연령비" v-if="doughnutChartData">
+        <client-only>
+          <doughnut-chart
+            :data="doughnutChartData"
+            :options="chartOptions"
+            :height="200"
+          />
+        </client-only>
       </widget>
     </div>
     <div class="grid grid-cols-2 gap-4">
       <widget title="Recent Orders">
-        <div class="flex flex-row px-4 py-1 justify-between font-mono border-b">
-          <div>ORDER ID</div>
-          <div>USER</div>
-          <div>DATE</div>
-          <div>COMPANY</div>
-          <div>AMOUNT</div>
-          <div>STATUS</div>
-        </div>
-        <list-item v-for="item in recentOrders" :key="item.id">
-          <div># {{ item.id }}</div>
-          <div>
-            {{ item.user }}
-          </div>
-          <div>
-            {{ new Date(item.date).toLocaleDateString() }}
-          </div>
-          <div>
-            {{ item.company }}
-          </div>
-          <div>$ {{ item.amount }}</div>
-          <div>
-            <span v-if="item.status === 'Paid'" class="text-green-400">{{
-              item.status
-            }}</span>
-            <span
-              v-else-if="item.status === 'Pending'"
-              class="text-yellow-400"
-              >{{ item.status }}</span
-            >
-          </div>
-        </list-item>
+        <table class="table-auto w-full">
+          <thead>
+            <tr>
+              <th>ORDER ID</th>
+              <th>USER</th>
+              <th>DATE</th>
+              <th>COMPANY</th>
+              <th>AMOUNT</th>
+              <th>STATUS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in recentOrders" :key="item.id" class="text-center font-mono">
+              <td># {{ item.id }}</td>
+              <td>
+                {{ item.user }}
+              </td>
+              <td>
+                {{ new Date(item.date).toLocaleDateString() }}
+              </td>
+              <td>
+                {{ item.company }}
+              </td>
+              <td>$ {{ item.amount }}</td>
+              <td>
+                <span v-if="item.status === 'Paid'" class="text-green-400">
+                  {{ item.status }}
+                </span>
+                <span
+                  v-else-if="item.status === 'Pending'"
+                  class="text-yellow-400"
+                  >
+                  {{ item.status }}
+                </span>
+                <span v-else>{{ item.status }}</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </widget>
       <widget title="Support Tickets">
-        <div class="flex flex-row px-4 py-1 justify-between font-mono border-b">
-          <div>TICKET ID</div>
-          <div>USER</div>
-          <div>PRIORITY</div>
-          <div>STATUS</div>
-          <div>CREATED DATE</div>
-        </div>
-        <list-item v-for="item in recentTickes" :key="item.id">
-          <div># {{ item.id }}</div>
-          <div>
-            {{ item.user }}
-          </div>
-          <div>
-            <span v-if="item.priority === 'Low'" class="text-gray-400">{{
-              item.priority
-            }}</span>
-            <span v-else-if="item.priority === 'High'" class="text-red-400">{{
-              item.priority
-            }}</span>
-            <span v-else>{{ item.priority }}</span>
-          </div>
-          <div class="text-green-400">
-            <span v-if="item.status === 'Open'" class="text-green-400">{{
-              item.status
-            }}</span>
-            <span v-else class="text-gray-400">{{ item.status }}</span>
-          </div>
-          <div>
-            {{ new Date(item.date).toLocaleDateString() }}
-          </div>
-        </list-item>
+        <table class="table-auto w-full">
+          <thead>
+            <tr>
+              <th>TICKET ID</th>
+              <th>USER</th>
+              <th>PRIORITY</th>
+              <th>STATUS</th>
+              <th>CREATED DATE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in recentTickets" :key="item.id" class="text-center font-mono">
+              <td># {{ item.id }}</td>
+              <td>
+                {{ item.user }}
+              </td>
+              <td>
+                <span v-if="item.priority === 'Low'" class="text-gray-400">{{
+                  item.priority
+                }}</span>
+                <span v-else-if="item.priority === 'High'" class="text-red-400">{{
+                  item.priority
+                }}</span>
+                <span v-else>{{ item.priority }}</span>
+              </td>
+              <td class="text-green-400">
+                <span v-if="item.status === 'Open'" class="text-green-400">{{
+                  item.status
+                }}</span>
+                <span v-else class="text-gray-400">{{ item.status }}</span>
+              </td>
+              <td>
+                {{ new Date(item.date).toLocaleDateString() }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </widget>
     </div>
   </div>
@@ -104,6 +121,7 @@ import DoughnutChart from "@/components/doughnut-chart";
 import ListItem from "@/components/list-item";
 import Widget from "@/components/widget-container";
 import {
+  onMounted,
   ref,
   useFetch,
 } from "~/node_modules/@nuxtjs/composition-api/lib/entrypoint";
@@ -160,7 +178,7 @@ export default {
     };
   },
   setup() {
-    const recentTickes = ref([]);
+    const recentTickets = ref([]);
     const recentOrders = ref([]);
     const barChartData = ref(null);
     const lineChartData = ref(null);
@@ -168,7 +186,7 @@ export default {
 
     const { fetch } = useFetch(async () => {
       const { data } = await usePrefetchStore("dashboard", "/api/dashboard");
-      recentTickes.value = data.tickets;
+      recentTickets.value = data.tickets;
       recentOrders.value = data.orders;
       barChartData.value = data.userChartData;
       barChartData.value.datasets.forEach((dataset) => {
@@ -200,9 +218,12 @@ export default {
 
     });
 
-    fetch();
+    onMounted(() => {
+      fetch();
+    })
+
     return {
-      recentTickes,
+      recentTickets,
       recentOrders,
       barChartData,
       lineChartData,
