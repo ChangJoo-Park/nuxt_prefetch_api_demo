@@ -2,7 +2,7 @@
   <div class="flex flex-row space-x-4">
     <div class="w-60 p-4">
       <div class="font-bold text-xl mb-4">
-        <nuxt-link to="/" @mouseenter.native.prevent="onMouseEnterTodos"
+        <nuxt-link to="/"
           >TODOS
         </nuxt-link>
       </div>
@@ -25,12 +25,13 @@ import usePrefetchStore from "~/composable/prefetch-store";
 export default defineComponent({
   setup() {
     const { fetch: fetchTodos } = useFetch(async () => {
-      await usePrefetchStore("todos", "/api/todos", {
-        resetCache: true,
+      usePrefetchStore("todos", "/api/todos", {
+        resetCache: false,
+        ttl: 1000 * 60
       });
     });
     const { fetch: fetchDashboard } = useFetch(async () => {
-      await usePrefetchStore("dashboard", "/api/dashboard", {
+      usePrefetchStore("dashboard", "/api/dashboard", {
         resetCache: false,
         ttl: 1000 * 60
       });
@@ -41,6 +42,7 @@ export default defineComponent({
     };
 
     const onMouseEnterDashboard = () => {
+      console.log('called')
       fetchDashboard();
     };
     return { onMouseEnterTodos, onMouseEnterDashboard };
