@@ -58,7 +58,7 @@ async function usePrefetchStore(key, url, options = {}) {
     console.log(`[🚀][${key}][PREFETCH_STORE] START FETCH FROM REMOTE`)
     const data = await fetcher(url)
     store[key] = { data, loading: false, error: null }
-    console.log(`[🚀][${key}][PREFETCH_STORE] DONE FETCH FROM REMOTE`)
+    console.log(`[🛑][${key}][PREFETCH_STORE] DONE FETCH FROM REMOTE`)
     setTimeout(() => {
       console.log(`[🗑][${key}][PREFETCH_STORE] CLEAR by TTL`)
       clearCache(key)
