@@ -1,13 +1,16 @@
 import express from 'express'
 import MockTodoDB from './todos.json'
+import MockDashboardDB from './dashboard.json'
 
 const api = express()
-const DELAY = 200 // ms
+const DELAY = 400 // ms
+
 const sleep = (ms) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve(), ms || DELAY);
   })
 }
+
 api.get('/todos', async (req, res)  => {
   await sleep(DELAY);
   res.status(200).json(MockTodoDB)
@@ -23,6 +26,12 @@ api.get('/todos/:id', async (req, res) => {
     res.status(404).json({})
   }
   console.log(`[SERVER][/todo/${req.params.id}] respond`)
+})
+
+api.get('/dashboard', async (req, res) => {
+  await sleep(DELAY);
+  res.status(200).json(MockDashboardDB)
+  console.log(`[SERVER][/dashboard] respond`)
 })
 
 export default {

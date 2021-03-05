@@ -11,9 +11,12 @@
   "dependencies": {
     "@nuxtjs/composition-api": "^0.21.0",
     "@vueuse/core": "^4.3.1",
+    "chart.js": "^2.9.4",
     "core-js": "^3.8.3",
     "express": "^4.17.1",
-    "nuxt": "^2.14.12"
+    "mocker-data-generator": "^2.12.0",
+    "nuxt": "^2.14.12",
+    "vue-chartjs": "^3.5.1"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^3.4.2",
