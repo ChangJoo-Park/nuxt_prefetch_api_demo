@@ -6,7 +6,7 @@
       <input
         id="delay"
         type="number"
-        min=65
+        min=150
         v-model.number="debounceDelay"
         class="border rounded p-2 focus:bg-gray-100"
       >
@@ -65,7 +65,7 @@ import usePrefetchStore from "~/composable/prefetch-store";
 export default defineComponent({
   setup() {
     const todos = ref([]);
-    const debounceDelay = ref(65);
+    const debounceDelay = ref(150);
     const { fetch } = useFetch(async () => {
       const { data } = await usePrefetchStore('todos', "/api/todos", { resetCache: false })
       todos.value = data
