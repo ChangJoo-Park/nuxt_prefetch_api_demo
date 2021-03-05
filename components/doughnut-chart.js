@@ -3,7 +3,13 @@ const { reactiveProp } = mixins;
 
 export default {
   extends: Doughnut,
-  props: ['data', 'options'],
+  props: {
+    data: {
+      type: Object,
+      default: () => {}
+    },
+    options: Object
+  },
   mixins: [reactiveProp],
   mounted () {
     this.renderChart(this.data, this.options)
