@@ -7,8 +7,8 @@
         </nuxt-link>
       </div>
       <div class="font-bold text-xl">
-        <nuxt-link to="/dashboard" @mouseenter.native.prevent="onMouseEnterDashboard"
-          >DASHBOARD
+        <nuxt-link to="/dashboard">
+          DASHBOARD
         </nuxt-link>
       </div>
     </div>
@@ -19,34 +19,9 @@
 </template>
 
 <script>
-import { defineComponent, useFetch } from "@nuxtjs/composition-api";
-import usePrefetchStore from "~/composable/prefetch-store";
+import { defineComponent } from "@nuxtjs/composition-api";
 
 export default defineComponent({
-  setup() {
-    const { fetch: fetchTodos } = useFetch(async () => {
-      usePrefetchStore("todos", "/api/todos", {
-        resetCache: false,
-        ttl: 1000 * 60
-      });
-    });
-    const { fetch: fetchDashboard } = useFetch(async () => {
-      usePrefetchStore("dashboard", "/api/dashboard", {
-        resetCache: false,
-        ttl: 1000 * 60
-      });
-    })
-
-    const onMouseEnterTodos = () => {
-      fetchTodos();
-    };
-
-    const onMouseEnterDashboard = () => {
-      console.log('called')
-      fetchDashboard();
-    };
-    return { onMouseEnterTodos, onMouseEnterDashboard };
-  },
 });
 </script>
 
