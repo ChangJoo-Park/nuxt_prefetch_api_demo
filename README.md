@@ -1,20 +1,5 @@
-# prefetch-api-when-hover-link
+# API Prefetching 데모
 
-## Build Setup
+## 소개
 
-```bash
-# install dependencies
-$ yarn install
-
-# serve with hot reload at localhost:3000
-$ yarn dev
-
-# build for production and launch server
-$ yarn build
-$ yarn start
-
-# generate static project
-$ yarn generate
-```
-
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+https://changjoopark.medium.com/%EC%A1%B0%EA%B8%88-%EB%8D%94-%EB%B9%A0%EB%A5%B8-%EC%9B%B9-%EC%95%B1%EC%9D%84-%EC%9C%84%ED%95%9C-api-prefetching-288015d42a42
