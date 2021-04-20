@@ -1,17 +1,5 @@
 <template>
   <div>
-
-    <div class="mb-4">
-      <label for="delay">Debounce delay (ms)</label>
-      <input
-        id="delay"
-        type="number"
-        min=150
-        v-model.number="debounceDelay"
-        class="border rounded p-2 focus:bg-gray-100"
-      >
-    </div>
-
     <ul class="flex flex-col space-y-2">
       <li
         class="transition-all duration-200 cursor-pointer border rounded px-4 hover:shadow hover:bg-gray-200"
@@ -54,42 +42,29 @@
 </template>
 
 <script>
-import {
-  defineComponent,
-  ref,
-  useFetch,
-} from "@nuxtjs/composition-api";
-import { useDebounceFn } from "@vueuse/shared";
-import usePrefetchStore from "~/composable/prefetch-store";
+import { defineComponent } from "@nuxtjs/composition-api"
+import useTodos from '~/composable/use-todos'
+import useTodo from '~/composable/use-todo'
 
 export default defineComponent({
   setup() {
-    const todos = ref([]);
-    const debounceDelay = ref(150);
-    const { fetch } = useFetch(async () => {
-      const { data } = await usePrefetchStore('todos', "/api/todos", { resetCache: false })
-      todos.value = data
-    });
-
-    fetch();
-
-    const debouncedFn = useDebounceFn(async (key, url) => {
-      await usePrefetchStore(key, url, { resetCache: false })
-    }, debounceDelay.value);
+    const { data: todos } = useTodos()
 
     const onMouseEnter = (todo) => {
       if (todo.id === 1) {
         return
       }
+      try {
+        // FIXME: Error on getCurrentInstance
+        useTodo(todo.id)
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
-      console.log(`[🖱][todo-${todo.id}][INDEX] MOUSE ENTER`)
-      const url = `/api/todos/${todo.id}`
-      debouncedFn(`todo-${todo.id}`, url);
-    };
-
-    return { todos, onMouseEnter, debounceDelay };
-  },
-});
+    return { todos, onMouseEnter }
+  }
+})
 </script>
 
 <style>

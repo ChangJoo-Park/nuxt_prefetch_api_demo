@@ -7771,6 +7771,11 @@ svgo@^1.0.0:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+swrv@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/swrv/-/swrv-0.9.3.tgz#eec6bb69c7fb2c17b3983bc3d318d40970c1b959"
+  integrity sha512-9ZUHwUhXT2+K0gymg2arS/m7p5XVfa75Lj5MBSy7JVSH9la/nQqzg9jYo7c+elkAWFvbUxpoqGw8yzOIJ0nccQ==
+
 tailwind-config-viewer@^1.4.0:
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/tailwind-config-viewer/-/tailwind-config-viewer-1.5.0.tgz#b0a345a70f4282f305bf012fdb2d54e48a4e885f"
